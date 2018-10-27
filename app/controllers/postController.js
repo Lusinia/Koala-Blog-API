@@ -5,17 +5,30 @@ const getAll = async ctx => {
   ctx.body = { data };
 };
 
-const getById = async ({ query: { id } }) => {
+const getById = async ({ sendCreated, params: { id } }) => {
   const data = await Post.findById(id);
-  ctx.body = { data };
+  sendCreated(data);
 };
 
-const createPost = async ({ request: { body } }) => {
-  const post = new Post(body);
-  post.save();
-  ctx.response.status = 201;
+const createPost = async ({ sendCreated, request: { body } }) => {
+  const post = await Post.create(body);
+  sendCreated(post);
+};
+
+const updatePost = async ({ sendCreated, request: { body } }) => {
+  try {
+    const post = await Post.findByIdAndUpdate(body.id, body);
+    sendCreated(post);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+const deletePost = async ({ sendSuccess, params: { id } }) => {
+  await Post.findByIdAndDelete(id);
+  sendSuccess();
 };
 
 module.exports = {
-  getAll, getById, createPost
+  getAll, getById, createPost, deletePost, updatePost
 };
