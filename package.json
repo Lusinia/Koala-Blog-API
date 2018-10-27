@@ -1,0 +1,33 @@
+{
+  "name": "koalablogapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "@koa/cors": "^2.2.2",
+    "dotenv": "^6.1.0",
+    "helmet": "^3.14.0",
+    "koa": "^2.6.1",
+    "koa-async-validator": "^0.2.1",
+    "koa-body": "^4.0.4",
+    "koa-helmet": "^4.0.0",
+    "koa-logger": "^3.2.0",
+    "koa-route": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.3.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lusinia/Koala-Blog-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lusinia/Koala-Blog-API/issues"
+  },
+  "homepage": "https://github.com/Lusinia/Koala-Blog-API#readme"
+}
