@@ -32,5 +32,7 @@ app.use(koaBody());
 app.use(routes.routes());
 app.use(routes.allowedMethods());
 
-app.listen(process.env.APP_PORT, () => {
+app.listen(process.env.APP_PORT || 3000, () => {
 });
+
+module.exports = app;
