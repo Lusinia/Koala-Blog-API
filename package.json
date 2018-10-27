@@ -16,9 +16,11 @@
     "koa-router": "^7.4.0",
     "mongoose": "^5.3.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  },
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",

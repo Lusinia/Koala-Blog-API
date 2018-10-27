@@ -14,12 +14,12 @@ const routes = require('./routes');
 // const responses = require('./middlewares/responses');
 // const errorHandler = require('./middlewares/error').baseErrorHandler;
 // const customValidators = require('./validators/custom');
-// const { scheduleResetSubscription } = require('./controller/user');
+// const { scheduleResetSubscription } = require('./controllers/user');
 
 mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mongo) => {
   console.log('connected to mongo db');
 }).catch((err) => {
-  console.log('Failed to connect to databse', { error: err });
+  console.log('Failed to connect to database', { error: err });
 });
 
 app.use(logger());
