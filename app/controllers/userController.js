@@ -6,6 +6,16 @@ const getAll = async ctx => {
   ctx.sendOK(users);
 }
 
+const getById = async ({
+  sendOK,
+  params: {
+    id: _id
+  }
+}) => {
+  const user = await User.findOne({ _id });
+  sendOK(user);
+}
+
 const createUser = async ({
   sendCreated,
   request: {
@@ -21,5 +31,6 @@ const createUser = async ({
 
 module.exports = {
   getAll,
-  createUser
+  createUser,
+  getById
 }
