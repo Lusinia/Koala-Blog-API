@@ -11,7 +11,8 @@ const koaValidator = require('koa-async-validator');
 const cors = require('@koa/cors');
 
 const routes = require('./routes');
-// const responses = require('./middlewares/responses');
+const response = require('./middlewares/response');
+
 // const errorHandler = require('./middlewares/error').baseErrorHandler;
 // const customValidators = require('./validators/custom');
 // const { scheduleResetSubscription } = require('./controllers/user');
@@ -26,8 +27,8 @@ app.use(logger());
 app.use(helmet());
 app.use(cors());
 app.use(koaBody());
+app.use(response);
 // app.use(koaValidator({ customValidators }));
-// app.use(responses);
 // app.use(errorHandler);
 app.use(routes.routes());
 app.use(routes.allowedMethods());
