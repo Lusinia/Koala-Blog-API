@@ -9,6 +9,7 @@ const koaBody = require('koa-body');
 const helmet = require('koa-helmet');
 const koaValidator = require('koa-async-validator');
 const cors = require('@koa/cors');
+const serve = require("koa-static");
 
 const routes = require('./routes');
 const response = require('./middlewares/response');
@@ -23,6 +24,8 @@ mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mong
   console.log('Failed to connect to database', { error: err });
 });
 
+app.use(serve(__dirname + "/assets"));
+
 app.use(logger());
 app.use(helmet());
 app.use(cors());
@@ -35,5 +38,6 @@ app.use(routes.allowedMethods());
 
 app.listen(process.env.APP_PORT || 3000, () => {
 });
+
 
 module.exports = app;
