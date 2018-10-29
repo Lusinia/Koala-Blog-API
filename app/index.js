@@ -1,4 +1,6 @@
 require('dotenv').config();
+require('./utils/root');
+
 const Koa = require('koa');
 const mongoose = require('mongoose');
 
@@ -20,7 +22,7 @@ mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mong
   console.log('Failed to connect to database', { error: err });
 });
 
-app.use(serve(__dirname + '/../dist'));
+app.use(serve(rootFolder('dist')));
 
 app.use(logger());
 app.use(helmet());
