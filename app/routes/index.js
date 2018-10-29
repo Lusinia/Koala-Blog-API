@@ -7,7 +7,7 @@ const postRoutes = require('./postRoutes');
 
 router.use('/', webRoute);
 
-router.use('api/users', usersRoutes);
-router.use('api/posts', postRoutes);
+router.use('/api/users', usersRoutes);
+router.use('/api/posts', postRoutes);
 
 module.exports = router;
