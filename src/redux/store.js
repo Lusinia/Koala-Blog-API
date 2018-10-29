@@ -8,7 +8,7 @@ import { logger } from 'redux-logger';
 
 const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
-const middleware = [routeMiddleware, thunk, logger];
+const middleware = [logger, routeMiddleware, thunk];
 const connectedReducer = connectRouter(history)(reducer);
 
 const store = createStore(

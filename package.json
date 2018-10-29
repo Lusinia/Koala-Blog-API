@@ -15,6 +15,7 @@
     "koa-body": "^4.0.4",
     "koa-helmet": "^4.0.0",
     "koa-logger": "^3.2.0",
+    "koa-mount": "^4.0.0",
     "koa-route": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
@@ -51,8 +52,8 @@
     "webpack-dev-server": "^3.1.10"
   },
   "scripts": {
-    "start": "concurrently 'npm run server' ' npm run dev'",
-    "dev": "webpack-dev-server --open --config webpack.config.js",
+    "start": "concurrently 'npm run web' 'npm run server'",
+    "web": "webpack-dev-server --open --config webpack.config.js",
     "server": "nodemon app",
     "build": "webpack --config webpack.config.js",
     "lint": "./node_modules/.bin/eslint ./src"

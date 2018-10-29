@@ -1,8 +1,8 @@
 require('dotenv').config();
-const Koa = require('koa');
+require('./utils/root');
 
+const Koa = require('koa');
 const mongoose = require('mongoose');
-const app = new Koa();
 
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
@@ -12,11 +12,9 @@ const cors = require('@koa/cors');
 const serve = require("koa-static");
 
 const routes = require('./routes');
-const response = require('./middlewares/response');
+const responseMiddlewares = require('./middlewares/response');
 
-// const errorHandler = require('./middlewares/error').baseErrorHandler;
-// const customValidators = require('./validators/custom');
-// const { scheduleResetSubscription } = require('./controllers/user');
+const app = new Koa();
 
 mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mongo) => {
   console.log('connected to mongo db');
@@ -24,15 +22,13 @@ mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mong
   console.log('Failed to connect to database', { error: err });
 });
 
-app.use(serve(__dirname + "/assets"));
+app.use(serve(rootFolder('dist')));
 
 app.use(logger());
 app.use(helmet());
 app.use(cors());
 app.use(koaBody());
-app.use(response);
-// app.use(koaValidator({ customValidators }));
-// app.use(errorHandler);
+app.use(responseMiddlewares);
 app.use(routes.routes());
 app.use(routes.allowedMethods());
 
