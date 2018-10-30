@@ -13,6 +13,7 @@ const serve = require("koa-static");
 
 const routes = require('./routes');
 const responseMiddlewares = require('./middlewares/response');
+const webMiddleware = require('./middlewares/web');
 
 const app = new Koa();
 
@@ -31,6 +32,7 @@ app.use(koaBody());
 app.use(responseMiddlewares);
 app.use(routes.routes());
 app.use(routes.allowedMethods());
+app.use(webMiddleware);
 
 app.listen(process.env.APP_PORT || 3000, () => {
 });
