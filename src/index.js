@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import App from './bootstrap';
+import registerServiceWorker from './bootstrap/registerServiceWorker';
+import './style/index.css';
 
-ReactDOM.render(<App />, document.getElementById('index'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
-
-module.hot.accept();
