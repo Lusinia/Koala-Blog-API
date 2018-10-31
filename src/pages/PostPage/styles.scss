@@ -10,12 +10,24 @@
     margin: auto;
   }
   &-image {
-    width: 60%;
-    height: 45vmin;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 5px $darkOpacity;
-    margin: 16px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   .image {
+     width: 60%;
+     height: 45vmin;
+     border-radius: 8px;
+     overflow: hidden;
+     box-shadow: 0 0 5px $darkOpacity;
+     margin: 16px 0;
+   }
+    button {
+      margin: 16px;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+    }
   }
   &-content {
      .title {

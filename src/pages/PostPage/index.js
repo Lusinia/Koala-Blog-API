@@ -6,6 +6,7 @@ import { Header } from '../../components';
 import * as actions from '../../actions/posts';
 import * as selectors from '../../services/selectors';
 import './styles.scss';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 class PostPage extends Component {
@@ -19,15 +20,38 @@ class PostPage extends Component {
 
   constructor(props) {
     super(props);
+    this.id = props.match.params.id;
     if (!props.posts) {
-      const { id } = props.match.params;
-      props.actions.getPost(id);
+      props.actions.getPost(this.id);
     }
+    this.state = {
+      isOpen: false
+    };
   }
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      isOpen: !prevState.isOpen
+    }));
+  };
 
   get post() {
     return this.props.posts ? this.props.post : this.props.activePost;
   }
+
+  goEditPost = () => {
+    this.props.history.push(`/posts/${this.post._id}/edit`);
+  };
+
+  deletePost = () => {
+    this.toggleModal();
+  };
+
+  deletePostSuccess = async () => {
+   await this.props.actions.deletePost(this.id);
+    this.toggleModal();
+    this.props.history.goBack();
+  };
 
   render() {
     return (
@@ -37,7 +61,13 @@ class PostPage extends Component {
           {this.post && (
             <article>
               <div className="post-image">
-                <img src={this.post.imageURL} alt="photo"/>
+                <div className="image">
+                  <img src={this.post.imageURL} alt="photo"/>
+                </div>
+                <div className="button">
+                  <Button color="info" onClick={this.goEditPost}>Edit this post</Button>
+                  <Button color="danger" onClick={this.deletePost}>Delete this post</Button>
+                </div>
               </div>
               <div className="post-content">
                 <div className="title">
@@ -50,6 +80,13 @@ class PostPage extends Component {
             </article>
           )}
         </div>
+        <Modal isOpen={this.state.isOpen}>
+          <ModalHeader toggle={this.toggle}>Do yo want to delete this post?</ModalHeader>
+          <ModalFooter>
+            <Button color="primary" onClick={this.deletePostSuccess}>Sure</Button>{' '}
+            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

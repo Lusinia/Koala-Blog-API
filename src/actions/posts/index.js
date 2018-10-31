@@ -21,3 +21,30 @@ export const getPost = id => async dispatch => {
     console.log('error', error.message);
   }
 };
+
+export const createPost = data => async dispatch => {
+  try {
+    const res = await api.createPost(data);
+    dispatch({ type: types.CREATE_POST.SUCCESS, payload: { data: res.data } });
+  } catch (error) {
+    console.log('error', error.message);
+  }
+};
+
+export const editPost = (data, id) => async dispatch => {
+  try {
+    const res = await api.editPost(data, id);
+    dispatch({ type: types.EDIT_POST.SUCCESS, payload: { data: res.data } });
+  } catch (error) {
+    console.log('error', error.message);
+  }
+};
+
+export const deletePost = id => async dispatch => {
+  try {
+    await api.deletePost(id);
+    dispatch({ type: types.DELETE_POST.SUCCESS, payload: { data: id } });
+  } catch (error) {
+    console.log('error', error.message);
+  }
+};

@@ -1,0 +1,13 @@
+@import "../../style/index";
+
+.create-post {
+  &-wrapper {
+    width: 70%;
+    margin: 32px auto;
+
+    label {
+      color: $darkGrey;
+      font-size: 22px;
+    }
+  }
+}

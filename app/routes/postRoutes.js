@@ -5,7 +5,7 @@ router
   .get('/', controller.getAll)
   .get('/:id', controller.getById)
   .post('/', controller.createPost)
-  .put('/', controller.updatePost)
+  .put('/:id', controller.updatePost)
   .delete('/:id', controller.deletePost);
 
 module.exports = router.routes();

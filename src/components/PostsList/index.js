@@ -28,7 +28,7 @@ class PostsList extends PureComponent {
   get bannerPosts() {
     if (this.posts) {
       const keys = Object.keys(this.posts);
-      return _.map(this.posts, item => item).slice(0, 3);
+      return _.map(this.posts, item => item)//.slice(0, 3);
     }
   }
 
