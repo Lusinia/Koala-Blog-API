@@ -1,9 +1,9 @@
 const Post = require('../models/postModel');
 const cloudinary = require('cloudinary');
 
-const getAll = async ({ sendCreated }) => {
+const getAll = async (ctx ) => {
   const data = await Post.find({});
-  sendCreated(data);
+  ctx.sendCreated(data);
 };
 
 const getById = async ({ sendCreated, params: { id } }) => {

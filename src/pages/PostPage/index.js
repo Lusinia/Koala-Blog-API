@@ -81,7 +81,7 @@ class PostPage extends Component {
           )}
         </div>
         <Modal isOpen={this.state.isOpen}>
-          <ModalHeader toggle={this.toggle}>Do yo want to delete this post?</ModalHeader>
+          <ModalHeader>Do yo want to delete this post?</ModalHeader>
           <ModalFooter>
             <Button color="primary" onClick={this.deletePostSuccess}>Sure</Button>{' '}
             <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>

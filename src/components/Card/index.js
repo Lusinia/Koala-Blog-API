@@ -19,10 +19,6 @@ class PostCard extends PureComponent {
     redirect: false
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   get post() {
     return this.props.post;
   }

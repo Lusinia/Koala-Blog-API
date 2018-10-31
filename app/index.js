@@ -11,10 +11,14 @@ const helmet = require('koa-helmet');
 const koaValidator = require('koa-async-validator');
 const cors = require('@koa/cors');
 const serve = require('koa-static');
+const jwt = require('koa-jwt');
+
 
 const routes = require('./routes');
 const responseMiddlewares = require('./middlewares/response');
+const headersMiddlewares = require('./middlewares/headers');
 const webMiddleware = require('./middlewares/web');
+const authUnlessMiddleware = require('./middlewares/authUnless');
 
 const keys = require('./config');
 const app = new Koa();
@@ -41,7 +45,11 @@ app.use(logger());
 app.use(helmet());
 app.use(cors());
 app.use(koaBody());
+app.use(headersMiddlewares);
 app.use(responseMiddlewares);
+app.use(jwt({ secret: keys.jwt.secret }).unless({
+  custom: authUnlessMiddleware
+}));
 app.use(routes.routes());
 app.use(routes.allowedMethods());
 app.use(webMiddleware);
