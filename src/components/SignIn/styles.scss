@@ -1,0 +1,13 @@
+@import "../../style/index";
+
+.sign-up {
+  background: #fff;
+  padding: 24px;
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    button  {
+      padding: 8px 32px;
+    }
+  }
+}
