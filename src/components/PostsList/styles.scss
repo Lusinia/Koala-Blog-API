@@ -1,0 +1,11 @@
+.list {
+  .banner {
+    display: flex;
+    flex-wrap: wrap;
+    .card-wrapper {
+      width: 48%;
+      margin: 1%;
+      height: 300px;
+    }
+  }
+}

@@ -12,6 +12,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
+    noInfo: false,
     hot: true
   },
   mode: 'development',
@@ -30,21 +31,45 @@ module.exports = {
       {
         test: /\.(css|sass|scss)$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              importLoaders: 2,
-              sourceMap: true
+              module: true
             }
           },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
+          "sass-loader"
         ]
+      },
+      {
+        test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              query: {
+                gifsicle: {
+                  interlaced: true
+                },
+                mozjpeg: {
+                  progressive: true
+                },
+                optipng: {
+                  optimizationLevel: 7
+                },
+                pngquant: {
+                  quality: '65-90',
+                  speed: 4
+                }
+              }
+            },
+          },
+        ],
       }
     ]
   },
@@ -58,5 +83,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css'
     })
-  ]
+  ],
+  devtool: 'eval-source-map'
 };

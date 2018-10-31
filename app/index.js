@@ -17,6 +17,8 @@ const webMiddleware = require('./middlewares/web');
 
 const app = new Koa();
 
+const seeds = require('./seeds');
+
 mongoose.connect(process.env.MONGO_SERVER, { useNewUrlParser: true }).then((mongo) => {
   console.log('connected to mongo db');
 }).catch((err) => {
@@ -33,6 +35,8 @@ app.use(responseMiddlewares);
 app.use(routes.routes());
 app.use(routes.allowedMethods());
 app.use(webMiddleware);
+
+seeds();
 
 app.listen(process.env.APP_PORT || 3000, () => {
 });

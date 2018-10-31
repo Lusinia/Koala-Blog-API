@@ -1,0 +1,22 @@
+$breakpoints: (
+        small: 767px,
+        medium: 992px,
+        large: 1200px
+);
+
+
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+}
+
+@mixin hover($color) {
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    color: $color;
+  }
+}

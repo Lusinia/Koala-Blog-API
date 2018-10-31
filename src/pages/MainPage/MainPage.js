@@ -2,27 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import logo from '../../static/svg/logo.svg';
+import {Header, PostsList} from '../../components';
 
 import { setName } from '../../actions/app';
 
-const App = ({ name, setText }) => (
-  <div className="App">
-    <header className="App-header">
-      {/* <img src={logo} className="App-logo" alt="logo" /> */}
-      <h1 className="App-title">Welcome to React</h1>
-    </header>
-    <p className="App-intro">
-      {name}
-    </p>
-    <button type="button" onClick={() => setText('REACT REDUX CORDOVA BOILERPLATE')}>
-      SHOW NAME
-    </button>
-  </div>
-);
+const App = props => {
+  return (
+    <div className="App">
+      <Header/>
+      <PostsList history={props.history}/>
+    </div>
+  )
+};
 
 App.propTypes = {
   name: PropTypes.string.isRequired,
+  history: PropTypes.object,
   setText: PropTypes.func.isRequired,
 };
 

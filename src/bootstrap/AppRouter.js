@@ -6,8 +6,9 @@ import MainPage from '../pages/MainPage';
 const AppRouter = () => (
   <Router>
     <Switch>
-      <Route exact path="/" component={MainPage} />
-      <Route exact path="/aleshka" component={() => 'ALESHKA'} />
+      <Route exact path="/posts" component={MainPage} />
+      <Route  path="/posts/:id" component={() => 'POST'} />
+      <Route  component={MainPage} />
     </Switch>
   </Router>
 );
