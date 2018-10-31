@@ -1,8 +1,8 @@
 const Post = require('../models/postModel');
 
-const getAll = async ctx => {
+const getAll = async ({ sendCreated }) => {
   const data = await Post.find({});
-  ctx.body = { data };
+  sendCreated(data);
 };
 
 const getById = async ({ sendCreated, params: { id } }) => {
