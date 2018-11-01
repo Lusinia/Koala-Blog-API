@@ -5,6 +5,7 @@ const registrated = randomDate(date, new Date());
 module.exports = [
   {
     firstName: 'Anna',
+    password: 'fff',
     lastName: 'Smith',
     lastVisited: date,
     registerDate: registrated,
@@ -13,6 +14,7 @@ module.exports = [
   {
     firstName: 'Serg',
     lastName: 'Valensky',
+    password: 'fff',
     lastVisited: date,
     registerDate: registrated,
     email: 'serg@gmail.com'
@@ -20,6 +22,7 @@ module.exports = [
   {
     firstName: 'Lina',
     lastName: 'Stash',
+    password: 'fff',
     lastVisited: date,
     registerDate: registrated,
     email: 'lina@gmail.com'
@@ -28,6 +31,7 @@ module.exports = [
     firstName: 'Mia',
     lastName: 'Black',
     lastVisited: date,
+    password: 'fff',
     registerDate: registrated,
     email: 'mia@gmail.com'
   }

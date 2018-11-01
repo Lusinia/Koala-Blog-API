@@ -17,7 +17,7 @@ module.exports = async (ctx, next) => {
     ctx.response.status = 200;
   };
 
-  ctx.sendError = (error, status) => {
+  ctx.sendError = (error, status = 404) => {
     ctx.response.status = status;
     ctx.body = error;
   };

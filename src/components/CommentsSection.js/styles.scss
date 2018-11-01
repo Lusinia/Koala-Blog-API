@@ -1,0 +1,13 @@
+@import "../../style/index";
+
+.comments {
+  width: 100%;
+  background: #fff;
+  border: 1px solid $greyLightest;
+  border-radius: 3px;
+  .pagination {
+    justify-content: flex-end;
+    width: 90%;
+    margin: auto;
+  }
+}

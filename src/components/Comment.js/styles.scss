@@ -1,0 +1,13 @@
+@import "../../style/index";
+
+.comment {
+  padding: 16px;
+  width: 90%;
+  margin: 16px auto;
+  background: $greyBg;
+  color: $greyLightest;
+  .bottom-section {
+    display: flex;
+    justify-content: space-between;
+  }
+}

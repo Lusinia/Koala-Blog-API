@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Header } from '../../components';
+import { Header, CommentsSection } from '../../components';
 import * as actions from '../../actions/posts';
+import * as commentsActions from '../../actions/comments';
 import * as selectors from '../../services/selectors';
 import './styles.scss';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 
 
 class PostPage extends Component {
@@ -21,11 +22,10 @@ class PostPage extends Component {
   constructor(props) {
     super(props);
     this.id = props.match.params.id;
-    if (!props.posts) {
-      props.actions.getPost(this.id);
-    }
+    props.actions.getPost(this.id);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      activePage: 1
     };
   }
 
@@ -77,6 +77,9 @@ class PostPage extends Component {
                   {this.post.body}
                 </section>
               </div>
+              <div className="comments-wrapper">
+                <CommentsSection id={this.id} activePage={this.state.activePage}/>
+              </div>
             </article>
           )}
         </div>
@@ -102,6 +105,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
+  actions: bindActionCreators({...actions, ...commentsActions}, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

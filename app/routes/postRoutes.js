@@ -5,7 +5,7 @@ const hasPerm = require('../middlewares/hasPerm');
 router
   .get('/', controller.getAll)
   .get('/:id', controller.getById)
-  .post('/', controller.createPost)
+  .post('/',  controller.createPost)
   .put('/:id', hasPerm(['USER']), controller.updatePost)
   .delete('/:id', controller.deletePost);
 
