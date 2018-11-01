@@ -9,16 +9,7 @@ const PostSchema = new mongoose.Schema({
   body: String,
   title: String,
   date: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  comments: [
-    {
-      author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      },
-      text: String
-    }
-  ]
+  updatedAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Post', PostSchema);

@@ -20,7 +20,10 @@ const postReducer = (state = initialState, action) => {
         ...state,
         posts: {
           ...state.posts,
-          [action.payload.data._id]: action.payload.data
+          items: {
+            ...state.posts.items,
+            [action.payload.data._id]: action.payload.data
+          }
         }
       };
     }

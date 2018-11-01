@@ -117,7 +117,6 @@ export default class Header extends PureComponent {
   };
 
   render() {
-    console.log('this.state', this.state);
     return (
       <React.Fragment>
         <div className="header">

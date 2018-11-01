@@ -1,33 +1,44 @@
 const Post = require('../models/postModel');
 const cloudinary = require('cloudinary');
 
-const getAll = async (ctx ) => {
-  const data = await Post.find({});
+const getAll = async (ctx) => {
+  const data = await Post.find({}).populate('author').exec();
   ctx.sendCreated(data);
 };
 
 const getById = async ({ sendCreated, params: { id } }) => {
-  const data = await Post.findById(id);
+  const data = await Post.findById(id).populate('author').exec();
   sendCreated(data);
 };
 
-const createPost = async ({ sendCreated, request: { body } }) => {
-  if (body.imageURL) {
-    const result = await cloudinary.uploader.upload(body.imageURL);
-    body.imageURL = result.secure_url;
-  }
-  const post = await Post.create(body);
-  sendCreated(post);
-};
-
-const updatePost = async ({ sendCreated, request: { body }, params: { id } }) => {
-  try {
+const createPost = async ({ sendCreated, sendError, user, request: { body } }) => {
+  if (user) {
     if (body.imageURL) {
       const result = await cloudinary.uploader.upload(body.imageURL);
       body.imageURL = result.secure_url;
     }
-    const post = await Post.findOneAndUpdate({ _id: id }, { $set: body }, { new: false });
+    body.author = user._id;
+    const post = await Post.create(body);
     sendCreated(post);
+  } else {
+    sendError('Action is denied');
+  }
+};
+
+const updatePost = async ({ sendCreated, sendError, request: { body }, params: { id }, user }) => {
+  try {
+    const post = await Post.findById(id);
+    if (user && post && user._id.toString() === post.author.toString()) {
+      if (body.imageURL) {
+        const result = await cloudinary.uploader.upload(body.imageURL);
+        body.imageURL = result.secure_url;
+      }
+
+      await Post.findOneAndUpdate({ _id: id }, { $set: body }, { new: false });
+      sendCreated(post);
+    } else {
+      sendError('Something went wrong');
+    }
   } catch (e) {
     console.log(e.message);
   }
