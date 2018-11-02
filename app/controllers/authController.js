@@ -22,13 +22,14 @@ const createUser = async ({
   }
 };
 
-const auth = async ({ sendCreated, sendError, request: { body: { email, password } } }) => {
+const auth = async ({ sendOK, sendError, request: { body: { email, password } } }) => {
   if (email && password) {
     try {
       const encoded = jwt.encode(password, keys.jwt.secret);
       const user = await User.find({ email, password: encoded });
-      if (user) {
-        sendCreated({ user: user[0], token: encoded });
+      console.log('user', user);
+      if (user.length) {
+        sendOK({ user: user[0], token: encoded });
       } else {
         sendError('There is no such user');
       }
