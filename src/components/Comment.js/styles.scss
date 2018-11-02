@@ -6,8 +6,14 @@
   margin: 16px auto;
   background: $greyBg;
   color: $greyLightest;
+  border-radius: 3px;
+  border: 1px solid $greyLightest;
   .bottom-section {
     display: flex;
     justify-content: space-between;
+     p {
+       margin: 0;
+       font-size: 0.9em;
+     }
   }
 }

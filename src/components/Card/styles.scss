@@ -41,6 +41,10 @@
         color: $greyLightest;
         margin-right: 16px;
         font-size: 14px;
+        display: flex;
+        svg {
+          margin-right: 10px;
+        }
       }
     }
   }

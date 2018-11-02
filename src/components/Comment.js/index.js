@@ -1,12 +1,18 @@
+import _ from 'lodash';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import './styles.scss';
-import PropTypes from 'prop-types';
-import moment from 'moment';
+
 
 class Comment extends PureComponent {
   static propTypes = {
     item: PropTypes.object
   };
+
+  get author() {
+    return _.get(this.props.item, 'author[0].firstName');
+  }
 
   render() {
     return (
@@ -14,7 +20,7 @@ class Comment extends PureComponent {
         <div>
           <p className="text">{this.props.item.text}</p>
           <div className="bottom-section">
-            <p>{this.props.item.author}</p>
+            <p>{this.author}</p>
             <p>{moment(this.props.item.updatedAt).format('D MMM YYYY')}</p>
           </div>
         </div>

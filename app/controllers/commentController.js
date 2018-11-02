@@ -13,7 +13,15 @@ const getAll = async (ctx) => {
       }
     },
     { $skip: skip },
-    { $limit: +limit }
+    { $limit: +limit },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'author',
+        foreignField: '_id',
+        as: 'author'
+      }
+    }
   ]);
   const count = await Comment.count({ post: id });
   ctx.sendCreated({ data, maxCount: count });
