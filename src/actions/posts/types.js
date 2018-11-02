@@ -1,4 +1,4 @@
-import {getActionType} from '../../services';
+import { getActionType } from '../../services';
 
 export const GET_POSTS = getActionType('GET_POSTS');
 export const GET_POST = getActionType('GET_POST');

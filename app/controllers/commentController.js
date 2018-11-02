@@ -1,10 +1,22 @@
+const mongoose = require('mongoose');
+const cloudinary = require('cloudinary');
 const Post = require('../models/postModel');
 const Comment = require('../models/commentModel');
 
 const getAll = async (ctx) => {
-  const {params: {id, limit, page}} = ctx;
-  const data = await Comment.find({post: id});
-  ctx.sendCreated(data);
+  const { params: { id }, query: { limit, page } } = ctx;
+  const skip = limit * (page - 1);
+  const data = await Comment.aggregate([
+    {
+      $match: {
+        post: mongoose.Types.ObjectId(id)
+      }
+    },
+    { $skip: skip },
+    { $limit: +limit }
+  ]);
+  const count = await Comment.count({ post: id });
+  ctx.sendCreated({ data, maxCount: count });
 };
 
 const getById = async ({ sendCreated, params: { id } }) => {

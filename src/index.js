@@ -7,5 +7,5 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/global.scss';
 
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

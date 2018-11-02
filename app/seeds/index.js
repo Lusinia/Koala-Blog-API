@@ -34,7 +34,7 @@ const createSeeds = async () => {
         for (let i = 0; i < 40; i++) {
           await Comment.create({
             _id: new mongoose.Types.ObjectId(),
-            text: comments[index].text,
+            text: `${i} ${comments[index].text}`,
             updatedAt: comments[index].updatedAt,
             createdAt: comments[index].createdAt,
             author: author._id,

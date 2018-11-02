@@ -1,14 +1,12 @@
 import axios from 'axios';
 
 
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   config.headers.Authorization = `Bearer ${token}`;
-  config.headers['Content-Type'] = `application/json`;
+  config.headers['Content-Type'] = 'application/json';
 
   return config;
-}, function (err) {
-  return Promise.reject(err);
-});
+}, (err) => Promise.reject(err));
 
 export default axios;

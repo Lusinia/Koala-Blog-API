@@ -1,4 +1,4 @@
-import {getActionType} from '../../services';
+import { getActionType } from '../../services';
 
 export const GET_COMMENTS = getActionType('GET_COMMENTS');
 export const GET_COMMENT = getActionType('GET_COMMENT');

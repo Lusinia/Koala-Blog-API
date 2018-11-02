@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, CommentsSection } from '../../components';
-import * as actions from '../../actions/posts';
+import { Button, Modal, ModalFooter, ModalHeader } from 'reactstrap';
+import { bindActionCreators } from 'redux';
 import * as commentsActions from '../../actions/comments';
+import * as actions from '../../actions/posts';
+import { CommentsSection, Header } from '../../components';
 import * as selectors from '../../services/selectors';
 import './styles.scss';
-import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap';
 
 
 class PostPage extends Component {
@@ -15,8 +15,9 @@ class PostPage extends Component {
     history: PropTypes.object,
     post: PropTypes.object,
     posts: PropTypes.object,
+    match: PropTypes.object,
     actions: PropTypes.object,
-    activePost: PropTypes.object,
+    activePost: PropTypes.object
   };
 
   constructor(props) {
@@ -24,9 +25,12 @@ class PostPage extends Component {
     this.id = props.match.params.id;
     props.actions.getPost(this.id);
     this.state = {
-      isOpen: false,
-      activePage: 1
+      isOpen: false
     };
+  }
+
+  get post() {
+    return this.props.posts ? this.props.post : this.props.activePost;
   }
 
   toggleModal = () => {
@@ -34,10 +38,6 @@ class PostPage extends Component {
       isOpen: !prevState.isOpen
     }));
   };
-
-  get post() {
-    return this.props.posts ? this.props.post : this.props.activePost;
-  }
 
   goEditPost = () => {
     this.props.history.push(`/posts/${this.post._id}/edit`);
@@ -48,7 +48,7 @@ class PostPage extends Component {
   };
 
   deletePostSuccess = async () => {
-   await this.props.actions.deletePost(this.id);
+    await this.props.actions.deletePost(this.id);
     this.toggleModal();
     this.props.history.goBack();
   };
@@ -56,13 +56,13 @@ class PostPage extends Component {
   render() {
     return (
       <div className="post">
-        <Header/>
+        <Header />
         <div className="post-wrapper">
           {this.post && (
             <article>
               <div className="post-image">
-                <div className="image">
-                  <img src={this.post.imageURL} alt="photo"/>
+                <div className="image-wrapper">
+                  <img src={this.post.imageURL} alt="post" />
                 </div>
                 <div className="button">
                   <Button color="info" onClick={this.goEditPost}>Edit this post</Button>
@@ -78,7 +78,7 @@ class PostPage extends Component {
                 </section>
               </div>
               <div className="comments-wrapper">
-                <CommentsSection id={this.id} activePage={this.state.activePage}/>
+                <CommentsSection id={this.id} />
               </div>
             </article>
           )}
@@ -86,7 +86,7 @@ class PostPage extends Component {
         <Modal isOpen={this.state.isOpen}>
           <ModalHeader>Do yo want to delete this post?</ModalHeader>
           <ModalFooter>
-            <Button color="primary" onClick={this.deletePostSuccess}>Sure</Button>{' '}
+            <Button color="primary" onClick={this.deletePostSuccess}>Sure</Button>
             <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -100,11 +100,10 @@ const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps.match.params;
   return {
     post: selectors.post(state, id),
-    activePost: selectors.activePost(state),
-    posts: selectors.posts(state)
+    activePost: selectors.activePost(state)
   };
 };
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({...actions, ...commentsActions}, dispatch),
+  actions: bindActionCreators({ ...actions, ...commentsActions }, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

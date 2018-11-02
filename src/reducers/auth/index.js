@@ -9,13 +9,13 @@ const initialState = {
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SIGN_IN.SUCCESS:
-    case types.SIGN_UP.SUCCESS: {
-      const { user, token } = action.payload.data;
-      return { ...state, token, userInfo: user };
-    }
-    default:
-      return state;
+  case types.SIGN_IN.SUCCESS:
+  case types.SIGN_UP.SUCCESS: {
+    const { user, token } = action.payload.data;
+    return { ...state, token, userInfo: user };
+  }
+  default:
+    return state;
   }
 };
 

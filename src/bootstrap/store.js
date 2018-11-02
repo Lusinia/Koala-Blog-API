@@ -8,7 +8,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const middlewares = [
   thunk,
-  isDevelopment && logger,
+  isDevelopment && logger
 ].filter(Boolean);
 
 const store = createStore(

@@ -30,24 +30,6 @@ export default class Header extends PureComponent {
     };
   }
 
-  toggleDropdown = () => {
-    this.setState(prevState => ({
-      dropdownOpen: !prevState.dropdownOpen
-    }));
-  };
-
-  toggleModal = () => {
-    this.setState(prevState => ({
-      isOpenModal: !prevState.isOpenModal
-    }));
-  };
-
-  toggleModalSignIn = () => {
-    this.setState(prevState => ({
-      isOpenModalSignIn: !prevState.isOpenModalSignIn
-    }));
-  };
-
   get leftSideMenu() {
     return (
       <div className="left-menu">
@@ -81,7 +63,7 @@ export default class Header extends PureComponent {
             <DropdownItem>
               <Link to="/aleshka">Aleshka</Link>
             </DropdownItem>
-            <DropdownItem divider/>
+            <DropdownItem divider />
           </DropdownMenu>
         </DropdownMenu>
       </Dropdown>
@@ -108,8 +90,26 @@ export default class Header extends PureComponent {
     );
   }
 
+  toggleDropdown = () => {
+    this.setState(prevState => ({
+      dropdownOpen: !prevState.dropdownOpen
+    }));
+  };
+
   openSignUpModal = () => {
     this.toggleModal();
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      isOpenModal: !prevState.isOpenModal
+    }));
+  };
+
+  toggleModalSignIn = () => {
+    this.setState(prevState => ({
+      isOpenModalSignIn: !prevState.isOpenModalSignIn
+    }));
   };
 
   openSignInModal = () => {
@@ -128,8 +128,8 @@ export default class Header extends PureComponent {
         <Modal isOpen={this.state.isOpenModal || this.state.isOpenModalSignIn}>
           <ModalHeader>Sign Up</ModalHeader>
           <ModalBody>
-            {this.state.isOpenModal && <SignUp toggle={this.toggleModal}/>}
-            {this.state.isOpenModalSignIn && <SignIn toggle={this.toggleModalSignIn}/>}
+            {this.state.isOpenModal && <SignUp toggle={this.toggleModal} />}
+            {this.state.isOpenModalSignIn && <SignIn toggle={this.toggleModalSignIn} />}
           </ModalBody>
         </Modal>
       </React.Fragment>

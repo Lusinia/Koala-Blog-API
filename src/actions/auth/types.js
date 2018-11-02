@@ -1,4 +1,4 @@
-import {getActionType} from '../../services';
+import { getActionType } from '../../services';
 
 export const SIGN_UP = getActionType('SIGN_UP');
 export const UPDATE_USER = getActionType('UPDATE_USER');

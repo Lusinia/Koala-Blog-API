@@ -8,7 +8,7 @@ const cloudinary = require('cloudinary');
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
 const helmet = require('koa-helmet');
-const koaValidator = require('koa-async-validator');
+// const koaValidator = require('koa-async-validator');
 const cors = require('@koa/cors');
 const serve = require('koa-static');
 const jwt = require('koa-jwt');
@@ -48,6 +48,7 @@ app.use(logger());
 app.use(helmet());
 app.use(cors());
 app.use(koaBody());
+app.use(headersMiddlewares);
 app.use(responseMiddlewares);
 app.use(jwt({ secret: keys.jwt.secret }).unless({
   custom: authUnlessMiddleware

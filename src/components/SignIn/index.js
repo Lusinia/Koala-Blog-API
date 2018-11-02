@@ -9,11 +9,7 @@ import './styles.scss';
 
 class SignIn extends Component {
   static propTypes = {
-    history: PropTypes.object,
-    post: PropTypes.object,
-    posts: PropTypes.object,
     actions: PropTypes.object,
-    activePost: PropTypes.object,
     toggle: PropTypes.func
   };
 
@@ -72,6 +68,6 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
+  actions: bindActionCreators(actions, dispatch)
 });
 export default connect(null, mapDispatchToProps)(SignIn);

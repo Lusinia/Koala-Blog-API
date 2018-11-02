@@ -9,5 +9,14 @@
     justify-content: flex-end;
     width: 90%;
     margin: auto;
+    .page-link {
+      &:focus {
+        box-shadow: none;
+      }
+      &.active {
+        color: $dark;
+        font-weight: 700;
+      }
+    }
   }
 }

@@ -13,10 +13,9 @@ import './styles.scss';
 class EditPostPage extends Component {
   static propTypes = {
     history: PropTypes.object,
-    post: PropTypes.object,
-    posts: PropTypes.object,
+    match: PropTypes.object,
     actions: PropTypes.object,
-    activePost: PropTypes.object,
+    activePost: PropTypes.object
   };
 
   constructor(props) {
@@ -27,9 +26,7 @@ class EditPostPage extends Component {
       body: _.get(props, 'post.body', ''),
       imageURL: _.get(props, 'post.imageURL')
     };
-    if (!props.posts && this.id) {
-      props.actions.getPost(id);
-    }
+    props.actions.getPost(this.id);
   }
 
   componentDidUpdate(prevProps) {
@@ -90,7 +87,7 @@ class EditPostPage extends Component {
   render() {
     return (
       <div className="create-post">
-        <Header/>
+        <Header />
         <div className="create-post-wrapper">
           <Form>
             <FormGroup>
@@ -124,7 +121,11 @@ class EditPostPage extends Component {
                 onChange={this.onChangeBody}
               />
             </FormGroup>
-            <Button color="info" onClick={this.onSubmit}>{this.buttonTitle} this post</Button>
+            <Button color="info" onClick={this.onSubmit}>
+              {this.buttonTitle}
+              {' '}
+              this post
+            </Button>
           </Form>
         </div>
       </div>
@@ -141,6 +142,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch),
+  actions: bindActionCreators(actions, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(EditPostPage);
