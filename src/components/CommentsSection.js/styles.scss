@@ -5,6 +5,12 @@
   background: #fff;
   border: 1px solid $greyLightest;
   border-radius: 3px;
+  .add-comment {
+    width: 90%;
+    margin: auto;
+    text-align: right;
+    padding: 16px 0;
+  }
   .pagination {
     justify-content: flex-end;
     width: 90%;

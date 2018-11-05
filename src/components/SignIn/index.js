@@ -65,7 +65,7 @@ class SignIn extends Component {
               type="email"
               name="email"
               id="email"
-              invalid={!this.getError('email') && this.state.submited}
+              invalid={this.getError('email') && this.state.submited}
               placeholder="Email"
               value={this.state.email}
               onChange={data => this.onChange(data, 'email')}

@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
-const cloudinary = require('cloudinary');
 const Post = require('../models/postModel');
 const Comment = require('../models/commentModel');
 
 const getAll = async (ctx) => {
-  const { params: { id }, query: { limit, page } } = ctx;
+  const { params: { postId }, query: { limit, page } } = ctx;
   const skip = limit * (page - 1);
   const data = await Comment.aggregate([
     {
       $match: {
-        post: mongoose.Types.ObjectId(id)
+        post: mongoose.Types.ObjectId(postId)
       }
     },
     { $skip: skip },
@@ -23,40 +22,34 @@ const getAll = async (ctx) => {
       }
     }
   ]);
-  const count = await Comment.count({ post: id });
+  const count = await Comment.count({ post: postId });
   ctx.sendCreated({ data, maxCount: count });
 };
 
-const getById = async ({ sendCreated, params: { id } }) => {
-  const data = await Post.findById(id).populate('author').exec();
+const getById = async ({ sendCreated, params: { postId } }) => {
+  const data = await Post.findById(postId).populate('author').exec();
   sendCreated(data);
 };
 
-const create = async ({ sendCreated, sendError, user, request: { body } }) => {
+const create = async ({ sendCreated, sendError, user, request: { body }, params: { postId } }) => {
   if (user) {
-    if (body.imageURL) {
-      const result = await cloudinary.uploader.upload(body.imageURL);
-      body.imageURL = result.secure_url;
-    }
     body.author = user._id;
-    const post = await Post.create(body);
-    sendCreated(post);
+    body.post = postId;
+    body.text = body.data;
+    const created = await Comment.create(body);
+    const comment = await Comment.findById(created._id).populate('author').exec();
+    sendCreated(comment);
   } else {
-    sendError('Action is denied');
+    sendError('Only signed in users can add comments');
   }
 };
 
-const update = async ({ sendCreated, sendError, request: { body }, params: { id }, user }) => {
+const update = async ({ sendCreated, sendError, request: { body }, params: { postId }, user }) => {
   try {
-    const post = await Post.findById(id);
-    if (user && post && user._id.toString() === post.author.toString()) {
-      if (body.imageURL) {
-        const result = await cloudinary.uploader.upload(body.imageURL);
-        body.imageURL = result.secure_url;
-      }
-
-      await Post.findOneAndUpdate({ _id: id }, { $set: body }, { new: false });
-      sendCreated(post);
+    const comment = await Comment.findById(postId);
+    if (user && comment && user._id.toString() === comment.author.toString()) {
+      await Comment.findOneAndUpdate({ _id: postId }, { $set: { ...body, updatedAt: new Date() } }, { new: false });
+      sendCreated({ comment, postId });
     } else {
       sendError('Something went wrong');
     }

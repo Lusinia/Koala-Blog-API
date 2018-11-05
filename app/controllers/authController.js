@@ -1,5 +1,5 @@
-const User = require('../models/userModel');
 const jwt = require('jwt-simple');
+const User = require('../models/userModel');
 const keys = require('../config');
 
 const createUser = async ({
@@ -27,7 +27,6 @@ const auth = async ({ sendOK, sendError, request: { body: { email, password } } 
     try {
       const encoded = jwt.encode(password, keys.jwt.secret);
       const user = await User.find({ email, password: encoded });
-      console.log('user', user);
       if (user.length) {
         sendOK({ user: user[0], token: encoded });
       } else {
@@ -38,7 +37,19 @@ const auth = async ({ sendOK, sendError, request: { body: { email, password } } 
     }
   }
 };
+
+const quickAuth = async ({ sendOK, sendError, user }) => {
+  console.log('user', user);
+  if (user) {
+    sendOK('Ok');
+  } else {
+    sendError('There is no such user');
+  }
+};
+
+
 module.exports = {
   createUser,
-  auth
+  auth,
+  quickAuth
 };

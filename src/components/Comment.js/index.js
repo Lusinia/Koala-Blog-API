@@ -11,7 +11,7 @@ class Comment extends PureComponent {
   };
 
   get author() {
-    return _.get(this.props.item, 'author[0].firstName');
+    return _.get(this.props.item, 'author[0].firstName') || _.get(this.props.item, 'author.firstName');
   }
 
   render() {

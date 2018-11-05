@@ -4,6 +4,7 @@ export const API_ENDPOINTS = {
   USERS: 'users',
   SING_UP: 'auth/signup',
   SING_IN: 'auth/signin',
+  SING_QUICK: 'auth/quick-auth',
   COMMENTS: 'comments'
 };
 export const COMMENTS_LIMIT = 3;

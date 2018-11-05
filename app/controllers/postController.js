@@ -34,7 +34,7 @@ const updatePost = async ({ sendCreated, sendError, request: { body }, params: {
         body.imageURL = result.secure_url;
       }
 
-      await Post.findOneAndUpdate({ _id: id }, { $set: body }, { new: false });
+      await Post.findOneAndUpdate({ _id: id }, { $set: { ...body, updatedAt: new Date() } }, { new: false });
       sendCreated(post);
     } else {
       sendError('Something went wrong');

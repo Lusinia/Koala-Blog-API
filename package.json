@@ -71,7 +71,7 @@
     "web": "webpack-dev-server --open --config webpack.config.js",
     "server": "nodemon app",
     "build": "webpack --config webpack.config.js --mode=production",
-    "lint": "./node_modules/.bin/eslint ./src"
+    "lint": "./node_modules/.bin/eslint ./src --fix"
   },
   "pre-commit": [
     "lint"

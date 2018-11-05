@@ -5,6 +5,7 @@ import * as api from './api';
 import { normalizeArray } from '../../services';
 import * as appActions from '../app';
 
+
 const { COMMENTS_LIMIT } = constants;
 
 export const getComments = (id, page) => async dispatch => {
@@ -12,9 +13,18 @@ export const getComments = (id, page) => async dispatch => {
     const query = { limit: COMMENTS_LIMIT, page };
     const res = await api.getComments(id, query);
     const { post } = res.data.data[0];
+
     dispatch({
       type: types.GET_COMMENTS.SUCCESS,
-      payload: { data: { ...normalizeArray(res.data.data, '_id'), count: res.data.maxCount, postId: post, page: query.page || 1 } } });
+      payload: {
+        data: {
+          ...normalizeArray(res.data.data, '_id'),
+          count: res.data.maxCount,
+          postId: post,
+          page: query.page || 1
+        }
+      }
+    });
   } catch (error) {
     dispatch(appActions.setError(error.message));
   }
@@ -29,12 +39,15 @@ export const getComment = (postId, id) => async dispatch => {
   }
 };
 
-export const createComment = (postId, id, data) => async dispatch => {
+export const createComment = (id, data) => async dispatch => {
   try {
-    const res = await api.createComment(postId, id, data);
+    dispatch(appActions.setLoading(types.CREATE_COMMENT.SUCCESS));
+    const res = await api.createComment(id, data);
     dispatch({ type: types.CREATE_COMMENT.SUCCESS, payload: { data: res.data } });
+    dispatch(appActions.clearLoading(types.CREATE_COMMENT.SUCCESS));
   } catch (error) {
-    dispatch(appActions.setError(error.message));
+    dispatch({ type: types.CREATE_COMMENT.ERROR, payload: { data: error.data } });
+    dispatch(appActions.clearLoading(types.CREATE_COMMENT.SUCCESS));
   }
 };
 

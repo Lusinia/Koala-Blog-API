@@ -58,7 +58,7 @@ app.use(routes.routes());
 app.use(routes.allowedMethods());
 app.use(webMiddleware);
 
-seeds();
+// seeds();
 
 app.listen(process.env.APP_PORT || 3000, () => {
 });
