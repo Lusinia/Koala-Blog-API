@@ -88,6 +88,7 @@ class EditPostPage extends Component {
     return (
       <div className="create-post">
         <Header />
+e
         <div className="create-post-wrapper">
           <Form>
             <FormGroup>

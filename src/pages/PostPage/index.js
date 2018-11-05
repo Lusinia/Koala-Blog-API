@@ -65,8 +65,8 @@ class PostPage extends Component {
                   <img src={this.post.imageURL} alt="post" />
                 </div>
                 <div className="button">
-                  <Button color="info" onClick={this.goEditPost}>Edit this post</Button>
-                  <Button color="danger" onClick={this.deletePost}>Delete this post</Button>
+                  {this.props.post.isOwner && <Button color="info" onClick={this.goEditPost}>Edit this post</Button>}
+                  {this.props.post.isOwner && <Button color="danger" onClick={this.deletePost}>Delete this post</Button>}
                 </div>
               </div>
               <div className="post-content">

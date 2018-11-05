@@ -8,6 +8,7 @@ const PostSchema = new mongoose.Schema({
   imageURL: { type: String, default: '' },
   body: String,
   title: String,
+  isOwner: Boolean,
   date: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   comments: {

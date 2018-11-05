@@ -1,14 +1,18 @@
 const Post = require('../models/postModel');
 const cloudinary = require('cloudinary');
+const mongoose = require('mongoose');
 
 const getAll = async (ctx) => {
   const data = await Post.find({}).populate('author').exec();
   ctx.sendCreated(data);
 };
 
-const getById = async ({ sendCreated, params: { id } }) => {
-  const data = await Post.findById(id).populate('author').exec();
-  sendCreated(data);
+const getById = async ({ sendCreated, user, params: { id } }) => {
+  // TODO => find method to update post without searching it twice
+  const data = await Post.findById(id);
+  const isOwner = user ? user._id.toString() === data.author._id.toString() : false;
+  const result = await Post.findByIdAndUpdate(id, { isOwner }, { new: true }).populate('author').exec();
+  sendCreated(result);
 };
 
 const createPost = async ({ sendCreated, sendError, user, request: { body } }) => {
