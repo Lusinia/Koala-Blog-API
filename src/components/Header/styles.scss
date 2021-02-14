@@ -1,0 +1,14 @@
+.header {
+  nav ul li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    a {
+      color: #aaa;
+      transition: all 0.3s;
+    }
+  }
+  .right-menu {
+    margin-left: auto;
+  }
+}

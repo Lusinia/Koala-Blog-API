@@ -1,0 +1,20 @@
+@import "../../style/index";
+
+.sign-up {
+  background: #fff;
+  padding: 24px;
+  .form-group {
+    margin-bottom: 5px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    button  {
+      padding: 8px 32px;
+    }
+  }
+
+  .spacer {
+    height: 24px;
+  }
+}

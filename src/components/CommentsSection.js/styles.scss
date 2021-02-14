@@ -1,0 +1,28 @@
+@import "../../style/index";
+
+.comments {
+  width: 100%;
+  background: #fff;
+  border: 1px solid $greyLightest;
+  border-radius: 3px;
+  .add-comment {
+    width: 90%;
+    margin: auto;
+    text-align: right;
+    padding: 16px 0;
+  }
+  .pagination {
+    justify-content: flex-end;
+    width: 90%;
+    margin: auto;
+    .page-link {
+      &:focus {
+        box-shadow: none;
+      }
+      &.active {
+        color: $dark;
+        font-weight: 700;
+      }
+    }
+  }
+}

@@ -1,9 +1,15 @@
 import { combineReducers } from 'redux';
 
-import appReducer from './app';
+import app from './app';
+import posts from './posts';
+import auth from './auth';
+import comments from './comments';
 
 const rootReducer = combineReducers({
-  app: appReducer,
+  app,
+  posts,
+  auth,
+  comments
 });
 
 export default rootReducer;
